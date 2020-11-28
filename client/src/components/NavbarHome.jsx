@@ -12,7 +12,7 @@ export default function NavbarHome() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Add Contact</Nav.Link>
+            <Nav.Link as={Link} to="/add-contact">Add Contact</Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
