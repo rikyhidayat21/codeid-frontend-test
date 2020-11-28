@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import NavbarHome from "./components/NavbarHome";
@@ -14,7 +13,7 @@ function App() {
         <Switch>
           <Route path="/add-contact" component={AddContact} />
 
-          <Route path="/edit-contact" component={EditContact} />
+          <Route path="/edit-contact/:contact_id" component={EditContact} />
 
           <Route path="/" component={Contact} />
         </Switch>

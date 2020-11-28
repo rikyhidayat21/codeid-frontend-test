@@ -9,6 +9,13 @@ import {
   CONTACT_DELETE_REQUEST,
   CONTACT_DELETE_SUCCESS,
   CONTACT_DELETE_FAIL,
+  CONTACT_EDIT_REQUEST,
+  CONTACT_EDIT_SUCCESS,
+  CONTACT_EDIT_FAIL,
+  CONTACT_EDIT_RESET,
+  CONTACT_GETBYID_REQUEST,
+  CONTACT_GETBYID_SUCCESS,
+  CONTACT_GETBYID_FAIL,
 } from "../constants/contactConstants";
 
 export const createContact = (formData) => async (dispatch) => {
@@ -69,24 +76,102 @@ export const listContact = () => async (dispatch) => {
   }
 };
 
-export const deleteContact = (contactId) => async (dispatch) => {
+export const editContact = (id, formData) => async (dispatch) => {
+  console.log("enter edit contact");
+  console.log(id, "<=== id at edit contact");
+  try {
+    dispatch({
+      type: CONTACT_EDIT_REQUEST,
+    });
+
+    const { data } = await axios.put(`/contact/${id}`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+
+    dispatch({
+      type: CONTACT_EDIT_SUCCESS,
+      payload: data,
+    });
+
+    dispatch({
+      type: CONTACT_EDIT_RESET,
+    });
+
+    console.log(data, "<=== data edit contact at action");
+  } catch (error) {
+    console.log(error, "<=== error edit contact at action");
+    dispatch({
+      type: CONTACT_EDIT_FAIL,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : ["error unknown"],
+    });
+  }
+};
+
+export const deleteContact = (id) => async (dispatch) => {
   console.log("enter delete contact action");
+  console.log(id, "<=== id contact at action");
   try {
     dispatch({
       type: CONTACT_DELETE_REQUEST,
     });
 
-    const { data } = await axios.delete(`/contact/${contactId}`);
-
+    const { data } = await axios.delete(`/contact/${id}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    console.log(
+      data,
+      "<=== data delete before dispatch contact delete success"
+    );
     dispatch({
       type: CONTACT_DELETE_SUCCESS,
     });
+
     dispatch(listContact());
+
     console.log(data, "<=== delete contact at action");
   } catch (error) {
     console.log(error, "<=== error delete action");
     dispatch({
       type: CONTACT_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.errors
+          ? error.response.data.errors
+          : ["error unknown"],
+    });
+  }
+};
+
+export const getByIdContact = (contactId) => async (dispatch) => {
+  console.log("enter get by id at action");
+  console.log(contactId, "<=== contact id at action");
+  try {
+    dispatch({
+      type: CONTACT_GETBYID_REQUEST,
+    });
+
+    const { data } = await axios.get(`/contact/${contactId}`, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    dispatch({
+      type: CONTACT_GETBYID_SUCCESS,
+      payload: data.data,
+    });
+
+    console.log(data.data, "<=== get by id contact at action");
+  } catch (error) {
+    console.log(error, "<=== error get by id contact");
+    dispatch({
+      type: CONTACT_GETBYID_FAIL,
       payload:
         error.response && error.response.data.errors
           ? error.response.data.errors

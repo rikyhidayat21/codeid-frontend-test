@@ -23,9 +23,11 @@ export default function ContactDetail({ contact }) {
 
   function handleEdit() {
     console.log("enter edit handler");
+    console.log(contact.id, "<=== contact.id");
   }
 
   const [show, setShow] = useState(false);
+
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
@@ -62,7 +64,7 @@ export default function ContactDetail({ contact }) {
               </Button>
               <Button
                 as={Link}
-                to={`/edit-product/${contact.id}`}
+                to={`/edit-contact/${contact.id}`}
                 onClick={handleEdit}
                 variant="light"
                 size="sm"
