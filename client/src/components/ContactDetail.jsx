@@ -62,6 +62,9 @@ export default function ContactDetail({ contact }) {
               <Button onClick={handleShow} size="sm" variant="light">
                 <i className="fas fa-times text text-danger fa-lg"></i>
               </Button>
+              <Button size="sm" variant="light">
+                <i className="fas fa-plus-circle text text-primary fa-lg"></i>
+              </Button>
               <Button
                 as={Link}
                 to={`/edit-contact/${contact.id}`}

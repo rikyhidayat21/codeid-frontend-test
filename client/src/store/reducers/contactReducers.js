@@ -25,7 +25,7 @@ export const contactCreateReducer = (
     case CONTACT_CREATE_REQUEST:
       return { loading: true };
     case CONTACT_CREATE_SUCCESS:
-      return { loading: false, success: true, product: action.payload };
+      return { loading: false, success: true, contact: action.payload };
     case CONTACT_CREATE_FAIL:
       return { loading: false, contact: {}, errors: action.payload };
     default:
