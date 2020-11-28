@@ -15,7 +15,6 @@ export default function Contact() {
     dispatch(listContact());
   }, []);
 
-  console.log(contacts, "<=== contacts");
   return (
     <Container>
       <h1 className="text-center mt-5">Contact List</h1>
